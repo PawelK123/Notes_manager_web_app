@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notatki</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/note_style.css') }}">
+
+</head>
+<body>
+
+<header>
+    <h1>Cześć, {{ imie }}!</h1>
+</header>
+<a href="login" class="fixed-link" target="_blank">Wróć do strony logowania</a>
+
+<div class="container">
+    <form id="notes_form" action="{{url_for('notes')}}" method="POST">
+        <h3>Dodaj nową notatkę</h3>
+
+        <!-- Pole do wpisania tytułu notatki -->
+        <label for="title" style="font-size: 25px;">Tytuł:</label>
+        <input type="text" id="title" name="title" placeholder="Tytuł notatki (opcjonalnie)">
+
+        <!-- Pole do wpisania treści notatki (wielowierszowe pole tekstowe) -->
+        <label for="tresc" style="font-size: 25px;">Treść:</label>
+        <textarea id="tresc" name="tresc" placeholder="Wpisz tutaj swoją notatkę..." rows="6" cols="50"></textarea>
+
+        <input type="submit" value="Dodaj notatkę" class="submit">
+    </form>
+</div>
+
+<div class="notes">
+    <!-- Notatki wyświetlane dynamicznie -->
+    
+        {% if posts %}
+    <h2>Twoje notatki </h2>
+    <ul>
+        {% for post in posts %}
+            <li class= "note">
+                <div class="buttons">
+                    <form action="{{url_for('run_edit')}}" method="POST">
+                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                    <button class="edit" type="submit">Edytuj</button>
+                    </form>
+                    <form action="{{url_for('delete')}}" method="POST">
+                    <input type="hidden" name="post_id" value="{{ post.id }}">
+                    <button class="delete" type="submit"onclick="return confirm('Czy na pewno chcesz usunąć tę notatkę?')">Usuń</button>
+                    </form>
+                </div>
+                <strong>{{ post.tytul }}</strong><br>
+                <em>{{ post.data }}</em><br>
+                <p>{{ post.tresc }}</p>
+            </li>
+        {% endfor %}
+    
+    </ul>
+{% else %}
+    <p>Nie masz żadnych notatek.</p>
+{% endif %}
+    </div>
+</div>
+
+
+</body>
+</html>
+

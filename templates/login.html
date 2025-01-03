@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login_style.css') }}">
+
+</head>
+<body>
+
+    <!-- Wyświetlanie komunikatów flash na górze strony -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div style="width: 100%; text-align: center;">
+                {% for category, message in messages %}
+                    <div class="{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    </style>
+</head>
+<div class="form-container">
+    <h1>Podaj login do swojego Notes Manager</h1>
+    <form id="login_form" action="{{url_for('login')}}" method="POST">
+
+        <label for="email">E-mail:</label>
+        <input type="text" id="email" name="email" placeholder="Wprowadź swój e-mail" required>
+
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" name="password" placeholder="Wprowadź swoje hasło" required>
+
+        <input type="submit" value="Zatwierdź">
+    </form>
+
+    <div class="message">
+        <p>Nie masz jeszcze konta? <a href="/register">Zarejestruj się</a></p>
+    </div>
+</div>
+
+</body>
+</html>

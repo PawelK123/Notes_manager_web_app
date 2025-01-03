@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rejestracja</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/register_style.css') }}">
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Rejestracja</h2>
+    <form id="register_form" action="{{url_for('register')}}"method="POST">
+
+        <label for="name">Imię:</label>
+        <input type="text" id="imie" name="imie" placeholder="Wprowadź imię">
+
+        <label for="email">E-mail:</label>
+        <input type="text" id="email" name="email" placeholder="Wprowadź e-mail" required>
+
+        <label for="password">Hasło:</label>
+        <input type="password" id="password" name="password" placeholder="Wprowadź hasło" required>
+
+        <input type="submit" value="Zarejestruj się">
+    </form>
+
+    <div class="message">
+        <p>Masz już konto? <a href="login">Zaloguj się</a></p>
+    </div>
+</div>
+
+</body>
+</html>
